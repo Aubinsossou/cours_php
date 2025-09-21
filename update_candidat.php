@@ -13,19 +13,21 @@ try {
 }
 
 if (isset($_POST["valider_update"])) {
+	//$id_candidats = htmlspecialchars(trim($_POST["id_candidats"]));
 	$last_name = htmlspecialchars(trim($_POST["last_name"]));
 	$prenom = htmlspecialchars(trim($_POST["prenom"]));
 	$date_of_naissance = htmlspecialchars(trim($_POST["date_of_naissance"]));
 	$photo_candidat = htmlspecialchars(trim($_POST["photo_candidat"]));
 	$id_partis = htmlspecialchars(trim($_POST["id_partis"]));
-	echo $last_name, $prenom, $date_of_naissance, $photo_candidat, $id_partis;
-	try {
-		$sql = "UPDATE `candidats` SET `nom_candidat`=':last_name',`prenom_candidat`=':prenom',`date_of_naissance`=':date_of_naissance',`photo_candidat`=':photo_candidat',`id_partis`=':id_partis'";
+	//echo $last_name, $prenom, $date_of_naissance, $photo_candidat, $id_candidats;
+	 try {
+		$sql = "UPDATE `candidats` SET `nom_candidat`=:last_name,`prenom_candidat`=:prenom,`date_of_naissance`=:date_of_naissance,`photo_candidat`=:photo_candidat,`id_partis`=:id_partis WHERE id_candidats=:id";
 		$stmt = $pdo->prepare($sql);
-		$stmt->execute(["last_name" => $last_name, "prenom" => $prenom, "date_of_naissance" => $date_of_naissance, "photo_candidat" => $photo_candidat, "id_partis" => $id_partis]);
+		$stmt->execute(["last_name" => $last_name, "prenom" => $prenom, "date_of_naissance" => $date_of_naissance, "photo_candidat" => $photo_candidat, "id_partis" => $id_partis,"id"=>$id]);
+		header("Location:listes_candidat.php");
 	} catch (PDOException $e) {
 		die("Erreur de connexion : " . $e->getMessage());
-	}
+	} 
 }
 
 
@@ -92,9 +94,9 @@ if (isset($_POST["valider_update"])) {
 
 <body>
 	<div class="Formulaire">
-		<form action="update_candidat.php" method="post">
+		<form action="update_candidat.php?id=<?php echo $candidat['id_candidats'] ?>" method="post">
 			<h2>Modifier les infos d'un candidats</h2>
-			<label for="last_name">Nom du candidat:</label>
+<!-- 		<input type="hidden" value="<?= htmlspecialchars($candidat['id_candidats']) ?>" name="id_candidats">-->			<label for="last_name">Nom du candidat:</label>
 			<input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($candidat['nom_candidat']) ?>">
 			<label for="prenom">Prénom du candidat:</label>
 			<input type="text" name="prenom" id="prenom" value="<?= htmlspecialchars($candidat['prenom_candidat']) ?>">
