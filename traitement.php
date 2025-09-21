@@ -17,12 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			$prenom = htmlspecialchars(trim($_POST["prenom"]));
 			$date_of_naissance = htmlspecialchars(trim($_POST["date_of_naissance"]));
 			$photo_candidat = htmlspecialchars(trim($_POST["photo_candidat"]));
+			$id_partis = htmlspecialchars(trim($_POST["id_partis"]));
 			//echo "Bonjour " . $last_name . " " . $prenom . "Voici ma date de naissance  " . $date_of_naissance . "Voici le lien vers ma photo  " . $photo_candidat;
 			//echo "<br>Information du formulaire récupérer <br>  ";
 			try {
-				$sql = "INSERT INTO candidats(nom_candidat, prenom_candidat, date_of_naissance, photo_candidat) VALUES (:nom_candidat,:prenom_candidat,:date_of_naissance,:photo_candidat)";
+				$sql = "INSERT INTO candidats(nom_candidat, prenom_candidat, date_of_naissance, photo_candidat,id_partis) VALUES (:nom_candidat,:prenom_candidat,:date_of_naissance,:photo_candidat,:id_partis)";
 				$stmt = $pdo->prepare($sql);
-				$stmt->execute(['nom_candidat' => $last_name, 'prenom_candidat' => $prenom, 'date_of_naissance' => $date_of_naissance, 'photo_candidat' => $photo_candidat]);
+				$stmt->execute(['nom_candidat' => $last_name, 'prenom_candidat' => $prenom, 'date_of_naissance' => $date_of_naissance, 'photo_candidat' => $photo_candidat,'id_partis'=> $id_partis]);
 				//echo "Bonjour $last_name,  $prenom,Voici mon email $email,Voici mon numéro $num, et mon Mot de passe $password";
 				header("Location:listes_candidat.php");
 				echo "Candidat ajouté à la base de données ";

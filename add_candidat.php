@@ -69,12 +69,14 @@
 			<input type="date" name="date_of_naissance" id="date_of_naissance">
 			<label for="phto_candidat">Photo du candidat:</label>
 			<input type="file" id="photo_candidat" name="photo_candidat">
+			<label for="id_partis">ID du partis:</label>
+			<input type="text" id="id_partis" name="id_partis">
 			<div class="button">
 				<button type="submit" id="button" name="valider">Envoyer</button>
 			</div>
 		</form>
 	</div>
-
+<a href="listes_candidat.php">Voir la liste des candidats</a>
 </body>
 
 <!--  strlen() pour connaitre la longueur d'un string

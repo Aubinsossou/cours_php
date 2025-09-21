@@ -12,13 +12,16 @@ try {
 }
 //var_dump( $candidats );
 
-try {
+if ($id) {
+	try {
 
-	$sql = "DELETE FROM `candidats` WHERE `id_candidats`=:id";
-	$stmt = $pdo->prepare($sql);
-	$stmt->execute(["id" => $id]);
-} catch (PDOException $e) {
-	echo "Erreur de connexion : " . $e->getMessage();
+		$sql = "DELETE FROM `candidats` WHERE `id_candidats`=:id";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(["id" => $id]);
+		header("Location:listes_candidat.php");
+	} catch (PDOException $e) {
+		echo "Erreur de connexion : " . $e->getMessage();
+	}
 }
 
 
@@ -114,10 +117,10 @@ try {
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-								<a href="add_candidat.php" >Ajouter un candidat</a>
+		<a href="add_candidat.php">Ajouter un candidat</a>
 
 	</div>
-	
+
 </body>
 
 </html>
